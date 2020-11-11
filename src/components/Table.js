@@ -1,5 +1,6 @@
 import React from 'react'
 import DataTable from 'react-data-table-component'
+import ExpandedComponent from './ExpandedComponent'
 
 // const data = [
 //   {
@@ -38,60 +39,22 @@ import DataTable from 'react-data-table-component'
 //   }
 // ]
 
-//this parameter has to be data!!!
-const SampleExpandedComponent = ({ data }) => {
-  // const expan = data.starts
-  // console.log('in sample')
-  // console.log(expan)
-  return (
-    <div>
-      <p>
-        Trainer:
-        {data.horse.trainer.firstName + ' ' + data.horse.trainer.lastName}
-      </p>
+/*
+https://github.com/jbetancur/react-data-table-component
+ */
 
-      <p>Father of this horse:{data.horse.pedigree.father.name}</p>
-    </div>
-  )
+const Hang = ({ content }) => {
+  return <p>{content}</p>
+}
+const Button = () => {
+  ;<button>Hello</button>
 }
 
 const Table = ({ data }) => {
-  const [selectableRows, setSelectableRows] = React.useState(false)
-  const [noSelectAll, setNoSelectAll] = React.useState(false)
-  const [
-    selectableRowsVisibleOnly,
-    setSelectableRowsVisibleOnly
-  ] = React.useState(false)
-  const [selectableRowsHighlight, setSelectableRowsHighlight] = React.useState(
-    false
-  )
   const [expandableRows, setExpandableRows] = React.useState(true)
   const [expandOnRowClick, setExpandOnRowClick] = React.useState(true)
-  const [pagination, setPagination] = React.useState(true)
-  const [highlight, setHighlight] = React.useState(false)
-  const [striped, setStriped] = React.useState(false)
-  const [pointer, setPointer] = React.useState(false)
-  const [dense, setDense] = React.useState(false)
-  const [persist, setPersist] = React.useState(false)
-  const [tableHead, setNoHead] = React.useState(false)
-  const [loading, setLoading] = React.useState(false)
-  const [noHeader, setNoHeader] = React.useState(false)
-  const [subHeader, setSubHeader] = React.useState(false)
-  const [subHeaderAlign, setSubHeaderAlign] = React.useState('right')
-  const [fixedHeader, setFixedheader] = React.useState(false)
-  const [directionValue, setDirectionValue] = React.useState('auto')
-
-  // const Object2Array = object => {
-  //   console.log('object2array')
-  //   let newArray = []
-  //   for (let i in object) {
-  //     newArray.push(object[i])
-  //   }
-  //   return newArray
-  // }
-
-  // const arrayData = Object2Array(data)
-  // console.log(arrayData)
+  const [striped, setStriped] = React.useState(true)
+  const [dense, setDense] = React.useState(true)
 
   const columns = [
     {
@@ -111,43 +74,17 @@ const Table = ({ data }) => {
     }
   ]
 
-  // if (data) {
-  //   console.log('in table log races type')
-  //   console.log(typeof data.starts)
-  //   console.log(data.starts)
-  // }
-
   return (
     <div>
       <DataTable
-        title="Race info"
         columns={columns}
         data={data.starts}
-        defaultSortField="title"
-        selectableRows={selectableRows}
-        selectableRowsNoSelectAll={noSelectAll}
-        selectableRowsHighlight={selectableRowsHighlight}
-        selectableRowsVisibleOnly={selectableRowsVisibleOnly}
+        striped={striped}
+        dense={dense}
+        noHeader
         expandableRows={expandableRows}
         expandOnRowClicked={expandOnRowClick}
-        pagination={pagination}
-        highlightOnHover={highlight}
-        striped={striped}
-        pointerOnHover={pointer}
-        dense={dense}
-        noTableHead={tableHead}
-        persistTableHead={persist}
-        progressPending={loading}
-        noHeader={noHeader}
-        subHeader={subHeader}
-        subHeaderComponent={
-          <div style={{ display: 'flex', alignItems: 'center' }}></div>
-        }
-        subHeaderAlign={subHeaderAlign}
-        fixedHeader={fixedHeader}
-        fixedHeaderScrollHeight="300px"
-        direction={directionValue}
-        expandableRowsComponent={<SampleExpandedComponent data={data.starts} />}
+        expandableRowsComponent={<ExpandedComponent data={data.starts} />}
       />
     </div>
   )

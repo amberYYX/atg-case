@@ -12,3 +12,4 @@ const getOneRaceInfo = async gameId => {
 }
 
 export default { getOneRaceInfo }
+
