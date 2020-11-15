@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RaceHead = ({ info, id, RaceHead }) => {
+const RaceHead = ({ info, id }) => {
   const changeDateFormat = stringDate => {
     const date = new Date(stringDate)
     return date.toDateString()
@@ -11,7 +11,7 @@ const RaceHead = ({ info, id, RaceHead }) => {
       <dt className="sm:col-span-2 text-5xl font-medium text-orange-100">
         {id}-{info.number}
       </dt>
-      <dd className="pt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-6">
+      <dd className="pt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-8">
         <ul>
           <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm leading-5">
             <div className="w-0 flex-1 flex items-center text-base font-bold -mb-2 text-blue-800">

@@ -46,7 +46,7 @@ function App() {
     if (gameTypeCheck(gameType)) {
       const searchResults = await gameScheduleServices.getGameInfo(gameType)
       const getKeys = Object.keys(searchResults)
-      console.log(getKeys)
+
       if (getKeys.includes('upcoming')) {
         const result = findClosetRace(searchResults.upcoming)
         setSearchResult(result)
@@ -77,13 +77,11 @@ function App() {
     return closetRace
   }
 
-  /*
-  BG Ccolor
-  darkBlue: rgba(19,51,76,1)
-  */
-
   return (
-    <div className="container mx-auto mt-10 w-3/4">
+    <div
+      style={{ minWidth: '700px' }}
+      className="container mx-auto mt-10 w-3/4"
+    >
       <SearchFrom handleSearchGameInfo={searchGameInfo}></SearchFrom>
 
       <Alert message={error}></Alert>
