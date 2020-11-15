@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchForm renders default correctly 1`] = `
+<form
+  className="w-full max-w-sm m-auto"
+  onSubmit={[Function]}
+>
+  <div
+    className="flex items-center border-b border-blue-500 py-1"
+  >
+    <input
+      className="appearance-none text-2xl bg-transparent border-none w-full text-blue-100 mr-3 py-1 px-2 leading-tight focus:outline-none"
+      onChange={[Function]}
+      placeholder="Input game type here"
+      type="text"
+      value=""
+    />
+    <button
+      className="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 focus:outline-none text-xl border-4 text-white py-1 px-2 rounded"
+      type="submit"
+    >
+      search
+    </button>
+  </div>
+</form>
+`;
