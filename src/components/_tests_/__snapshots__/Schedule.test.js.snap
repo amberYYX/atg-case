@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`schedule renders default correctly 1`] = `
+<table
+  className=" m-auto w-3/4 mt-8 bg-blue-600  text-white"
+>
+  <tbody>
+    <tr
+      className="text-center border-b border-blue-400 text-2xl"
+    >
+      <td>
+        Game Id
+      </td>
+      <td>
+        Start Time
+      </td>
+    </tr>
+    <tr
+      className="text-center text-base border-b hover:bg-blue-800 leading-8 border-blue-500"
+      onClick={[Function]}
+    >
+      <td
+        className="border-r border-blue-400"
+      >
+        001
+      </td>
+      <td>
+        Mon Nov 16 2020, 12:20:00
+      </td>
+    </tr>
+    <tr
+      className="text-center text-base border-b hover:bg-blue-800 leading-8 border-blue-500"
+      onClick={[Function]}
+    >
+      <td
+        className="border-r border-blue-400"
+      >
+        002
+      </td>
+      <td>
+        Mon Nov 16 2020, 16:10:00
+      </td>
+    </tr>
+    <tr
+      className="text-center text-base border-b hover:bg-blue-800 leading-8 border-blue-500"
+      onClick={[Function]}
+    >
+      <td
+        className="border-r border-blue-400"
+      >
+        003
+      </td>
+      <td>
+        Mon Nov 16 2020, 17:10:00
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;

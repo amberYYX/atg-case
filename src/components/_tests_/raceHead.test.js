@@ -13,6 +13,7 @@ describe('RaceHead', () => {
   }
 
   const id = 'V4'
+
   it('renders default correctly', () => {
     const tree = renderer.create(<RaceHead info={testInfo} id={id} />)
     expect(tree).toMatchSnapshot()
