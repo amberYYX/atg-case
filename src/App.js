@@ -4,18 +4,15 @@ import gameScheduleServices from './services/gameSchedule'
 import getOneRaceServices from './services/raceInfo'
 import Race from './components/Race'
 import Alert from './components/Alert'
+import GameSchedule from './components/GameSchedule'
 
 function App() {
-  const [game, setGame] = useState(null)
+  const [gameType, setGameType] = useState('')
+  const [gameId, setGameId] = useState(0)
   const [upComing, setGameStatus] = useState(true)
   const [searchResult, setSearchResult] = useState([])
-  const [closetRace, setClosetRace] = useState(null)
+  const [gameIdInfo, setGameIdInfo] = useState(null)
   const [error, setErrorMessage] = useState(null)
-
-  const changeFormat = stringDate => {
-    const date = new Date(stringDate)
-    return date.getTime()
-  }
 
   const gameTypeCheck = userInput => {
     if (
@@ -24,7 +21,7 @@ function App() {
       userInput === 'V64' ||
       userInput === 'V4'
     ) {
-      setGame(userInput)
+      setGameType(userInput)
       return true
     } else {
       const inputErrorMessage = {
@@ -32,7 +29,6 @@ function App() {
         content:
           'The search services are only available for game type V75, V65, V64 and V4.'
       }
-
       setErrorMessage(inputErrorMessage)
       setTimeout(() => {
         setErrorMessage(null)
@@ -46,36 +42,32 @@ function App() {
     if (gameTypeCheck(gameType)) {
       const searchResults = await gameScheduleServices.getGameInfo(gameType)
       const getKeys = Object.keys(searchResults)
-
       if (getKeys.includes('upcoming')) {
-        const result = findClosetRace(searchResults.upcoming)
+        const result = searchResults.upcoming
         setSearchResult(result)
         setGameStatus(true)
       } else {
-        const result = findClosetRace(searchResults.results)
+        const result = searchResults.results
         setSearchResult(result)
         setGameStatus(false)
       }
     }
   }
 
+  const handleGameSearch = item => {
+    setGameId(item.id)
+  }
+
   //to load one Race info'
   useEffect(() => {
-    const id = searchResult.id
-    if (searchResult.length === 0) {
+    if (gameId === 0) {
       return null
     } else {
-      getOneRaceServices.getOneRaceInfo(id).then(response => {
-        setClosetRace(response)
+      getOneRaceServices.getOneRaceInfo(gameId).then(response => {
+        setGameIdInfo(response)
       })
     }
-  }, [searchResult])
-
-  const findClosetRace = gameArray => {
-    gameArray.map(race => (race.startTime = changeFormat(race.startTime)))
-    const closetRace = gameArray.sort((a, b) => a.startTime - b.startTime)[0]
-    return closetRace
-  }
+  }, [gameId])
 
   return (
     <div
@@ -86,37 +78,34 @@ function App() {
 
       <Alert message={error}></Alert>
 
-      {closetRace ? (
+      {searchResult.length > 0 ? (
         <div>
-          {
-            upComing ? null : (
-              <div className="bg-blue-400 text-white border-t-8 border-blue-500 text-lg px-8 py-3 mt-4 font-bold rounded-b">
-                {`Sorry, No upcoming games found under ${game}`}
-                <p className="text-blue-800 text-base font-normal">
-                  Below shows the most recent game results for you.
-                </p>
-              </div>
-            )
-            // (
-            //   <Alert
-            //     message={{
-            //       title: `Sorry, No upcoming games found under ${game}`,
-            //       content: 'Below showing the most recent game results for you.'
-            //     }}
-            //   ></Alert>
-            // )
-          }
-          <ul>
-            {closetRace.races.map(race => (
-              <Race
-                key={race.id}
-                raceInfo={race}
-                id={game}
-                searchType={searchResult.searchResultType}
-              ></Race>
-            ))}
-          </ul>
+          {upComing ? null : (
+            <div className="w-3/4 m-auto bg-blue-400 text-white border-t-8 border-blue-500 text-lg px-8 py-2 mt-4 font-bold rounded-b">
+              {`Sorry, No upcoming games found under game type ${gameType}.`}
+              <p className="text-blue-800 text-base font-normal">
+                Below shows the most recent game results for you.
+              </p>
+            </div>
+          )}
+          <GameSchedule
+            data={searchResult}
+            handleSelectedId={handleGameSearch}
+          ></GameSchedule>
         </div>
+      ) : null}
+
+      {gameIdInfo ? (
+        <ul>
+          {gameIdInfo.races.map(race => (
+            <Race
+              key={race.id}
+              raceInfo={race}
+              id={gameType}
+              searchType={searchResult.searchResultType}
+            ></Race>
+          ))}
+        </ul>
       ) : (
         <div> </div>
       )}

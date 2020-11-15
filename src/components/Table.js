@@ -43,13 +43,6 @@ import ExpandedComponent from './ExpandedComponent'
 https://github.com/jbetancur/react-data-table-component
  */
 
-const Hang = ({ content }) => {
-  return <p>{content}</p>
-}
-const Button = () => {
-  ;<button>Hello</button>
-}
-
 const Table = ({ data }) => {
   const [expandableRows, setExpandableRows] = React.useState(true)
   const [expandOnRowClick, setExpandOnRowClick] = React.useState(true)
