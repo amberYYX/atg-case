@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RaceHead = ({ info, id }) => {
+const RaceHead = ({ info, id, RaceHead }) => {
   const changeDateFormat = stringDate => {
     const date = new Date(stringDate)
     return date.toDateString()

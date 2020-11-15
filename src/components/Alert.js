@@ -7,7 +7,7 @@ const Alert = ({ message }) => {
 
   return (
     <div
-      className="flex m-auto mt-3 bg-orange-100 border-t-4 border-orange-500 px-4 py-3 w-1/2 rounded-b text-orange-900 shadow-md"
+      className="flex m-auto mt-3 bg-orange-100 border-t-4 border-orange-500 w-3/4 px-4 py-3 rounded-b text-orange-900 shadow-md"
       role="alert"
     >
       <div className="flex">

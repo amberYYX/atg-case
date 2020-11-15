@@ -7,6 +7,7 @@ import Alert from './components/Alert'
 
 function App() {
   const [game, setGame] = useState(null)
+  const [upComing, setGameStatus] = useState(true)
   const [searchResult, setSearchResult] = useState([])
   const [closetRace, setClosetRace] = useState(null)
   const [error, setErrorMessage] = useState(null)
@@ -44,17 +45,16 @@ function App() {
   const searchGameInfo = async gameType => {
     if (gameTypeCheck(gameType)) {
       const searchResults = await gameScheduleServices.getGameInfo(gameType)
-      const upcomingLength = Object.keys(searchResults.upcoming).length
-
-      if (upcomingLength === 0) {
-        console.log('no recent upcoming')
-
-        const result = findClosetRace(searchResults.results)
-        setSearchResult(result)
-      } else {
-        console.log('recent upcoming...')
+      const getKeys = Object.keys(searchResults)
+      console.log(getKeys)
+      if (getKeys.includes('upcoming')) {
         const result = findClosetRace(searchResults.upcoming)
         setSearchResult(result)
+        setGameStatus(true)
+      } else {
+        const result = findClosetRace(searchResults.results)
+        setSearchResult(result)
+        setGameStatus(false)
       }
     }
   }
@@ -83,20 +83,45 @@ function App() {
   */
 
   return (
-    <div className="container mx-auto mt-10">
+    <div className="container mx-auto mt-10 w-3/4">
       <SearchFrom handleSearchGameInfo={searchGameInfo}></SearchFrom>
 
       <Alert message={error}></Alert>
 
       {closetRace ? (
         <div>
+          {
+            upComing ? null : (
+              <div className="bg-blue-400 text-white border-t-8 border-blue-500 text-lg px-8 py-3 mt-4 font-bold rounded-b">
+                {`Sorry, No upcoming games found under ${game}`}
+                <p className="text-blue-800 text-base font-normal">
+                  Below shows the most recent game results for you.
+                </p>
+              </div>
+            )
+            // (
+            //   <Alert
+            //     message={{
+            //       title: `Sorry, No upcoming games found under ${game}`,
+            //       content: 'Below showing the most recent game results for you.'
+            //     }}
+            //   ></Alert>
+            // )
+          }
           <ul>
             {closetRace.races.map(race => (
-              <Race key={race.id} raceInfo={race} id={game}></Race>
+              <Race
+                key={race.id}
+                raceInfo={race}
+                id={game}
+                searchType={searchResult.searchResultType}
+              ></Race>
             ))}
           </ul>
         </div>
-      ) : null}
+      ) : (
+        <div> </div>
+      )}
     </div>
   )
 }
